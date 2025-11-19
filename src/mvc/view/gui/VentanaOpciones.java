@@ -22,7 +22,20 @@ public class VentanaOpciones extends JDialog {
         super(padre, "Opciones", true); // Modal
         
         config = ConfiguracionJuego.obtenerInstancia();
-        fondo = new ImageIcon(getClass().getResource("/imagenes/fondo_azul.png")).getImage();
+        
+        // Cargar fondo desde mvc/view/imagenes/
+        try {
+            java.net.URL ruta = getClass().getResource("/mvc/view/imagenes/fondo_azul.png");
+            if (ruta != null) {
+                fondo = new ImageIcon(ruta).getImage();
+                System.out.println("✅ Fondo de opciones cargado");
+            } else {
+                System.out.println("⚠️ Fondo no encontrado en /mvc/view/imagenes/fondo_azul.png");
+            }
+        } catch (Exception e) {
+            System.out.println("⚠️ Error al cargar fondo: " + e.getMessage());
+            fondo = null;
+        }
         
         setSize(600, 500);
         setLocationRelativeTo(padre);
@@ -37,10 +50,17 @@ public class VentanaOpciones extends JDialog {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                for (int x = 0; x < getWidth(); x += fondo.getWidth(null)) {
-                    for (int y = 0; y < getHeight(); y += fondo.getHeight(null)) {
-                        g.drawImage(fondo, x, y, this);
+                if (fondo != null) {
+                    // Dibujar fondo en mosaico
+                    for (int x = 0; x < getWidth(); x += fondo.getWidth(null)) {
+                        for (int y = 0; y < getHeight(); y += fondo.getHeight(null)) {
+                            g.drawImage(fondo, x, y, this);
+                        }
                     }
+                } else {
+                    // Fallback: color azul oscuro
+                    g.setColor(new Color(30, 30, 80));
+                    g.fillRect(0, 0, getWidth(), getHeight());
                 }
             }
         };
@@ -272,9 +292,9 @@ public class VentanaOpciones extends JDialog {
      */
     private void aplicarCambiosVolumen() {
         // Obtener la ventana principal para ajustar el volumen
-        JFrame ventanaPrincipal = (JFrame) getParent();
-        if (ventanaPrincipal instanceof VentanaPrincipal) {
-            ((VentanaPrincipal) ventanaPrincipal).ajustarVolumenMusica();
+        Window owner = getOwner();
+        if (owner instanceof VentanaPrincipal) {
+            ((VentanaPrincipal) owner).ajustarVolumenMusica();
         }
         
         // También podríamos ajustar efectos de sonido aquí si los hubiera

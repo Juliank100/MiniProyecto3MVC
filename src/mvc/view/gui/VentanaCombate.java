@@ -40,7 +40,7 @@ public class VentanaCombate extends JFrame {
     // System.out original para restaurar
     private PrintStream salidaOriginal;
     
-    // Scanner para enemigos (evitar problemas con System.in)
+    // Scanner para enemigos
     private Scanner scannerEnemigos;
     
     public VentanaCombate() {
@@ -50,14 +50,17 @@ public class VentanaCombate extends JFrame {
         setLocationRelativeTo(null);
         setResizable(true);
         
-        // Cargar fondo (si no existe, usar color sólido)
+        // Cargar fondo desde mvc/view/imagenes/
         try {
-            URL ruta = getClass().getResource("/imagenes/fondo_azul.png");
+            URL ruta = getClass().getResource("/mvc/view/imagenes/fondo_azul.png");
             if (ruta != null) {
                 fondo = new ImageIcon(ruta).getImage();
+                System.out.println("✅ Fondo de combate cargado");
+            } else {
+                System.err.println("⚠️ Fondo no encontrado en /mvc/view/imagenes/fondo_azul.png");
             }
         } catch (Exception e) {
-            System.err.println("⚠️ No se pudo cargar el fondo, usando color sólido");
+            System.err.println("⚠️ Error al cargar fondo: " + e.getMessage());
         }
         
         // Guardar salida original
@@ -82,8 +85,8 @@ public class VentanaCombate extends JFrame {
         // Configurar redirección de System.out al log
         ConsolaRedirect.configurarRedireccion(logCombate);
         
-        // Reproducir música de batalla (si existe)
-        reproducirMusica("/sonidos/musica_menu.wav");
+        // Reproducir música de batalla desde mvc/view/sonidos/
+        reproducirMusica("/mvc/view/sonidos/musica_batalla.wav");
         
         // Iniciar primer turno
         SwingUtilities.invokeLater(this::iniciarSiguienteTurno);
@@ -102,7 +105,6 @@ public class VentanaCombate extends JFrame {
                         }
                     }
                 } else {
-                    // Fallback: color azul oscuro
                     g.setColor(new Color(30, 30, 80));
                     g.fillRect(0, 0, getWidth(), getHeight());
                 }
@@ -604,9 +606,12 @@ public class VentanaCombate extends JFrame {
         try {
             URL url = getClass().getResource(ruta);
             if (url == null) {
-                System.out.println("⚠️ Música no encontrada: " + ruta);
+                System.out.println("⚠️ Música de batalla no encontrada en: " + ruta);
+                System.out.println("   Verifica que el archivo exista en: src/mvc/view/sonidos/musica_batalla.wav");
                 return;
             }
+            
+            System.out.println("✅ Cargando música de batalla desde: " + url.getPath());
             AudioInputStream audioInput = AudioSystem.getAudioInputStream(url);
             clipMusica = AudioSystem.getClip();
             clipMusica.open(audioInput);
@@ -615,8 +620,9 @@ public class VentanaCombate extends JFrame {
             
             clipMusica.loop(Clip.LOOP_CONTINUOUSLY);
             clipMusica.start();
+            System.out.println("🎵 Música de batalla reproduciéndose");
         } catch (Exception e) {
-            System.out.println("⚠️ No se pudo reproducir música: " + e.getMessage());
+            System.out.println("⚠️ No se pudo reproducir música de batalla: " + e.getMessage());
         }
     }
     
@@ -638,6 +644,7 @@ public class VentanaCombate extends JFrame {
         if (clipMusica != null && clipMusica.isRunning()) {
             clipMusica.stop();
             clipMusica.close();
+            System.out.println("🔇 Música de batalla detenida");
         }
         if (scannerEnemigos != null) {
             scannerEnemigos.close();
