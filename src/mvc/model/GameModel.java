@@ -1,9 +1,6 @@
 package mvc.model;
 
 import mvc.model.combate.Batalla;
-import mvc.model.items.InventarioGrupo;
-import mvc.model.personajes.Enemigo;
-import mvc.model.personajes.Heroe;
 import mvc.model.personajes.Personaje;
 
 import java.util.List;
@@ -18,7 +15,6 @@ import java.util.Scanner;
  */
 public class GameModel {
     private Batalla batalla;
-    private Scanner scanner; // si se necesita entrada por consola para batalla
 
     public GameModel() {
         // no inicializamos Batalla aún; se crea al iniciar combate
@@ -30,7 +26,6 @@ public class GameModel {
      */
     public boolean iniciarBatallaConsola(Scanner sc) {
         if (sc == null) throw new IllegalArgumentException("Scanner no puede ser null");
-        this.scanner = sc;
         this.batalla = new Batalla(sc);
         // No consumimos ni cambiamos la lógica interna; quien llame podrá usar Batalla directamente si lo desea.
         try {
@@ -41,7 +36,6 @@ public class GameModel {
             return false;
         }
     }
-
     /**
      * Retorna una copia ligera de héroes (si Batalla lo permite).
      * Si Batalla no expone getters públicos, este método devuelve lista vacía.
@@ -53,23 +47,27 @@ public class GameModel {
             java.lang.reflect.Method m = batalla.getClass().getMethod("getHeroes");
             Object res = m.invoke(batalla);
             if (res instanceof List) {
-                return (List<Personaje>) res;
+                @SuppressWarnings("unchecked")
+                List<Personaje> result = (List<Personaje>) res;
+                return result;
             }
         } catch (Exception ignore) {}
         return new ArrayList<>();
     }
 
     /**
-     * Retorna una copia ligera de enemigos si Batalla lo expone.
-     */
     public List<Personaje> obtenerEnemigos() {
         try {
             java.lang.reflect.Method m = batalla.getClass().getMethod("getEnemigos");
             Object res = m.invoke(batalla);
             if (res instanceof List) {
-                return (List<Personaje>) res;
+                @SuppressWarnings("unchecked")
+                List<Personaje> result = (List<Personaje>) res;
+                return result;
             }
         } catch (Exception ignore) {}
+        return new ArrayList<>();
+    }
         return new ArrayList<>();
     }
 

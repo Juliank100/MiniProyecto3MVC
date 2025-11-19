@@ -17,7 +17,7 @@ import java.util.List;
 
 public class VentanaCombate extends JFrame {
     // Componentes principales
-    private JPanel panelHeroes, panelEnemigos, panelAcciones, panelLog;
+    private JPanel panelHeroes, panelEnemigos, panelAcciones ;
     private JTextArea logCombate;
     private JScrollPane scrollLog;
     private List<PanelPersonaje> panelesHeroes;
@@ -423,7 +423,7 @@ public class VentanaCombate extends JFrame {
                 if (!h.estaVivo()) continue;
                 JButton btn = crearBotonAccion(h.getNombre() + " (HP: " + h.getHpActual() + ")");
                 btn.addActionListener(ev -> {
-                    boolean usado = inventario.usarItem(item, heroe, h);
+                    inventario.usarItem(item, heroe, h);
                     actualizarPaneles();
                     panelAcciones.removeAll();
                     panelAcciones.revalidate();
@@ -445,7 +445,7 @@ public class VentanaCombate extends JFrame {
                 if (!en.estaVivo()) continue;
                 JButton btn = crearBotonAccion(en.getNombre() + " (HP: " + en.getHpActual() + ")");
                 btn.addActionListener(ev -> {
-                    boolean usado = inventario.usarItem(item, heroe, en);
+                    inventario.usarItem(item, heroe, en);
                     actualizarPaneles();
                     panelAcciones.removeAll();
                     panelAcciones.revalidate();
@@ -657,13 +657,11 @@ public class VentanaCombate extends JFrame {
     // Clase interna para representar visualmente a cada personaje
     class PanelPersonaje extends JPanel {
         private Personaje personaje;
-        private boolean esHeroe;
         private JLabel lblNombre, lblHP, lblMP, lblEstado;
         private JProgressBar barraHP, barraMP;
         
         public PanelPersonaje(Personaje p, boolean esHeroe) {
             this.personaje = p;
-            this.esHeroe = esHeroe;
             
             setLayout(new GridLayout(5, 1, 2, 2));
             setBackground(new Color(20, 20, 40, 200));

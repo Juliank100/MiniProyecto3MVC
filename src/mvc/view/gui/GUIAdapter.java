@@ -3,7 +3,7 @@ package mvc.view.gui;
 import mvc.controller.GameController;
 
 import javax.swing.SwingUtilities;
-import mvc.view.gui.VentanaPrincipal;
+
 
 /**
  * GUIAdapter - adaptador ligero que abre la VentanaPrincipal existente.
@@ -17,17 +17,15 @@ import mvc.view.gui.VentanaPrincipal;
  * tocar su código, este adaptador solo abre la ventana.
  */
 public class GUIAdapter {
-    private final GameController controller;
+    private VentanaPrincipal ventanaPrincipal;
 
     public GUIAdapter(GameController c) {
-        this.controller = c;
     }
-
     public void show() {
         SwingUtilities.invokeLater(() -> {
             try {
-                VentanaPrincipal vp = new VentanaPrincipal();
-                vp.setVisible(true);
+                ventanaPrincipal = new VentanaPrincipal();
+                ventanaPrincipal.setVisible(true);
                 // Si VentanaPrincipal tiene métodos públicos para registrar listeners,
                 // aquí es donde los registraríamos, por ejemplo:
                 // vp.setOnStartListener( () -> controller.startBattleAsync(new Scanner(System.in)) );
