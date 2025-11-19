@@ -29,71 +29,71 @@ El juego se ejecuta en consola y busca aplicar los conceptos fundamentales de la
 
 ## Estructura del Proyecto
 
-plaintext
+
 dragonquest/
 
 mvc/
 ├── model/        → Lógica del combate, personajes, habilidades, items
-│    ├── combate/
-│    │   └── Batalla.java               → Control del flujo de combate y turnos
-│    │
-│    ├── estados/
-│    │   └── EstadoAlterado.java        → Enum con estados (normal, paralizado, dormido, etc.)
-│    │
-│    ├── habilidades/
-│    │   ├── Habilidad.java             → Clase base abstracta para las habilidades
-│    │   ├── Curacion.java              → Habilidad de curar HP
-│    │   ├── CuracionGrupal.java              → Habilidad de curar HP al grupo
-│    │   ├── Dormir.java              → Habilidad de Dormir al enemigo
-│    │   ├── GolpeCritico.java              → Habilidad para que un golpe fisico tenga chance de ser un golpe critico
-│    │   ├── Paralisis.java              → Habilidad de paralizar al enemigo
-│    │   ├── RemoverEstado.java              → Habilidad para remover cualquier estado negativo 
-│    │   ├── Veneno.java              → Habilidad de curar HP
-│    │   ├── Aturdimiento.java              → Habilidad de envenenar al enemigo
-│    │   └── DanioMagico.java           → Habilidad ofensiva mágica
-│    │
-│    ├── items/
-│    │   ├── Item.java                  → Clase base abstracta para ítems
-│    │   ├── InventarioGrupo.java              → Clase auxiliar simple para pares
-│    │   ├── PocionCuracion.java                → Restaura HP
-│    │   ├── Antidoto.java              → Habilidad para eliminar el estado envenenado
-│    │   └── PocionMagia.java                  → Restaura MP
-│    │
-│    ├── personajes/
-│    │   ├── Personaje.java             → Clase base abstracta con atributos y métodos comunes
-│    │   ├── Heroe.java                 → Subclase que representa a los héroes
-│    │   └── Enemigo.java               → Subclase que representa a los enemigos
-│    │
-│    └── GameModel.java
+│   ├── combate/
+│   │   └── Batalla.java               → Control del flujo de combate y turnos
+│   │
+│   ├── estados/
+│   │   └── EstadoAlterado.java        → Enum con estados (normal, paralizado, dormido, etc.)
+│   │
+│   ├── habilidades/
+│   │   ├── Habilidad.java             → Clase base abstracta para las habilidades
+│   │   ├── Curacion.java              → Habilidad de curar HP
+│   │   ├── CuracionGrupal.java              → Habilidad de curar HP al grupo
+│   │   ├── Dormir.java              → Habilidad de Dormir al enemigo
+│   │   ├── GolpeCritico.java              → Habilidad para que un golpe fisico tenga chance de ser un golpe critico
+│   │   ├── Paralisis.java              → Habilidad de paralizar al enemigo
+│   │   ├── RemoverEstado.java              → Habilidad para remover cualquier estado negativo 
+│   │   ├── Veneno.java              → Habilidad de curar HP
+│   │   ├── Aturdimiento.java              → Habilidad de envenenar al enemigo
+│   │   └── DanioMagico.java           → Habilidad ofensiva mágica
+│   │
+│   ├── items/
+│   │   ├── Item.java                  → Clase base abstracta para ítems
+│   │   ├── InventarioGrupo.java              → Clase auxiliar simple para pares
+│   │   ├── PocionCuracion.java                → Restaura HP
+│   │   ├── Antidoto.java              → Habilidad para eliminar el estado envenenado
+│   │   └── PocionMagia.java                  → Restaura MP
+│   │
+│   ├── personajes/
+│   │   ├── Personaje.java             → Clase base abstracta con atributos y métodos comunes
+│   │   ├── Heroe.java                 → Subclase que representa a los héroes
+│   │   └── Enemigo.java               → Subclase que representa a los enemigos
+│   │
+│   └── GameModel.java
 │
 │
 │
 ├── view/         → Vistas (consola y GUI)
-│    │
-│    ├── gui/                               → Contiene toda la interfaz gráfica (Java Swing)
-│    │   ├── VentanaPrincipal.java          → Ventana inicial del juego (menú principal con opciones)
-│    │   ├── VentanaCombate.java            → Ventana principal de combate con paneles de héroes y enemigos
-│    │   ├── PanelHeroe.java                → Muestra la información de cada héroe (nombre, HP, MP, estados)
-│    │   ├── PanelEnemigo.java              → Muestra la información de cada enemigo
-│    │   ├── VentanaHabilidades.java        → Permite seleccionar y usar habilidades disponibles
-│    │   ├── VentanaInventario.java         → Permite seleccionar y usar ítems del inventario
-│    │   ├── PanelMensajes.java             → Panel auxiliar que muestra eventos del combate (ataques, curaciones, etc.)
-│    │
-│    ├── imagenes/
-│    │    └── fondo_azul.png
-│    │
-│    ├── sonidos/
-│    │   ├── heal.wav               
-│    │   ├── hit.wav
-│    │   ├── musica_batalla.wav
-│    │   ├── musica_menu.wav
-│    │   └── status.wav
-│    │
-│    └── ConsoleView.java
+│   │
+│   ├── gui/                               → Contiene toda la interfaz gráfica (Java Swing)
+│   │   ├── VentanaPrincipal.java          → Ventana inicial del juego (menú principal con opciones)
+│   │   ├── VentanaCombate.java            → Ventana principal de combate con paneles de héroes y enemigos
+│   │   ├── PanelHeroe.java                → Muestra la información de cada héroe (nombre, HP, MP, estados)
+│   │   ├── PanelEnemigo.java              → Muestra la información de cada enemigo
+│   │   ├── VentanaHabilidades.java        → Permite seleccionar y usar habilidades disponibles
+│   │   ├── VentanaInventario.java         → Permite seleccionar y usar ítems del inventario
+│   │   ├── PanelMensajes.java             → Panel auxiliar que muestra eventos del combate (ataques, curaciones, etc.)
+│   │
+│   ├── imagenes/
+│   │    └── fondo_azul.png
+│   │
+│   ├── sonidos/
+│   │   ├── heal.wav               
+│   │   ├── hit.wav
+│   │   ├── musica_batalla.wav
+│   │   ├── musica_menu.wav
+│   │   └── status.wav
+│   │
+│   └── ConsoleView.java
 │
 └── controller/   → GameController (manejo de flujo y eventos)
-│    │
-│    └── GameController.java
+│   │
+│   └── GameController.java
 │
 │
 ├── MainMVC.java           → Clase principal (main)
@@ -101,8 +101,8 @@ mvc/
 │
 │
 └── config/                            → Manejo de configuración general del juego
-   ├── ConfiguracionJuego.java        → Lee y aplica valores desde config.properties
-   └── ConfiguracionJuegoManager.java → Control centralizado de opciones (volumen, dificultad, etc.)
+│   ├── ConfiguracionJuego.java        → Lee y aplica valores desde config.properties
+│   └── ConfiguracionJuegoManager.java → Control centralizado de opciones (volumen, dificultad, etc.)
 
 
 
@@ -133,54 +133,4 @@ mvc/
 
 - Luego abrir el PR en GitHub para revisión.
 
----
-
-## Análisis del Diseño
-- *¿Qué pasa si dos personajes tienen la misma velocidad?*
-
-Si dos personajes tienen la misma velocidad, el sistema mantiene el orden de aparición dentro de la lista de turno.
-Esto significa que el personaje agregado primero actuará antes que el segundo.
-
-## ¿Qué sistema se usa para definir las habilidades (y que puedan tener efectos distintos)?
-
-El código usa una clase abstracta *Habilidad* que obliga a cada habilidad a implementar el método *ejecutar().*
-Gracias a eso, cada habilidad (por ejemplo *Curacion, DanioMagico,* etc.) puede tener comportamientos únicos, sin alterar la estructura base.
-
-public abstract class Habilidad {
-    protected String nombre;
-    protected int costoMP;
-    public abstract void ejecutar(Personaje usuario, List<Personaje> enemigos, List<Personaje> aliados, Scanner sc);
-}
-
-## ¿Cómo se podrían representar los distintos tipos de personajes o enemigos?
-
-*Se logra mediante herencia y especialización:*
-
-Heroe y Enemigo heredan de Personaje.
-
-Cada subclase redefine su comportamiento (tomarTurno(), atacar(), etc.).
-
-En el futuro podrían agregarse clases como:
-
-class Mago extends Heroe { ... }
-class Guerrero extends Heroe { ... }
-class JefeFinal extends Enemigo { ... }
-
-## ¿Cómo se garantiza que el código sea extensible (por ejemplo, para el Mini Proyecto 2)?
-
-*El proyecto está diseñado siguiendo principios de extensibilidad:*
-
-- Cada componente (combate, personajes, habilidades, ítems, estados) está en su propio paquete.
-
-- Las clases abstractas (Personaje, Habilidad, Item) definen contratos que pueden ser ampliados fácilmente.
-
-- Para futuras versiones se podrán agregar:
-
-- Nuevas habilidades y efectos de estado.
-
-- Tipos de personajes con comportamientos distintos.
-
-- Un sistema de niveles o experiencia.
-
-- Una interfaz gráfica (GUI) o base de datos sin alterar la lógica central.
 ---
